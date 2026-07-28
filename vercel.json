@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/lawyeros", "destination": "https://lawyer-ai-frontend-flame.vercel.app/lawyeros" },
+    { "source": "/lawyeros/", "destination": "https://lawyer-ai-frontend-flame.vercel.app/lawyeros" },
+    { "source": "/lawyeros/:path*", "destination": "https://lawyer-ai-frontend-flame.vercel.app/lawyeros/:path*" }
+  ]
+}
