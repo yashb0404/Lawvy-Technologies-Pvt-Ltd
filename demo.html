@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a demo — Lawvy Technologies</title>
+  <meta name="description" content="Book a 30-minute walkthrough of the Lawvy platform. Pick a time that suits you — the invite lands with a Google Meet link." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/demo.css" />
+</head>
+<body class="bk-body">
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav is-stuck" id="nav">
+  <a class="nav__brand" href="/">
+    <img class="nav__mark" src="/logo.png" alt="Lawvy Technologies" width="263" height="320" />
+    <span class="nav__name">LAWVY<span class="nav__name-sub">TECHNOLOGIES</span></span>
+  </a>
+  <a href="/" class="bk-back">← Back to site</a>
+</header>
+
+<main class="bk">
+  <div class="bk__shell">
+
+    <!-- ── left: what you're booking ── -->
+    <aside class="bk__aside">
+      <span class="eyebrow">Book a demo</span>
+      <h1 class="bk__title">See it run on<br />your own problem</h1>
+      <p class="bk__lede">
+        Thirty minutes, no slide deck. Bring a process that eats your team's
+        week and we'll show you the part of it agents can take.
+      </p>
+
+      <ul class="bk__meta">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span><b>30 minutes</b>Focused walkthrough</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2.5"/><path d="M15.5 10.5 21.5 7v10l-6-3.5Z"/></svg>
+          <span><b>Google Meet</b>Link arrives with the invite</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+          <span><b>Your timezone</b><i id="tzEcho">detecting…</i></span>
+        </li>
+      </ul>
+
+      <div class="bk__see">
+        <span class="bk__seeLbl">What we'll cover</span>
+        <ul>
+          <li>Your systems, and how agents would reach them</li>
+          <li>A live run end to end — including where it stops for a human</li>
+          <li>The audit trail, and what it looks like months later</li>
+          <li>What a first deployment would actually take</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ── right: the picker ── -->
+    <section class="bk__panel">
+      <ol class="bk__steps" id="steps">
+        <li class="is-on" data-s="1"><b>1</b>Pick a time</li>
+        <li data-s="2"><b>2</b>Your details</li>
+        <li data-s="3"><b>3</b>Confirmed</li>
+      </ol>
+
+      <!-- STEP 1 -->
+      <div class="bk__stage" id="stage1">
+        <div class="bk__tzrow">
+          <label for="tz">Times shown in</label>
+          <select id="tz" class="bk__select"></select>
+          <button type="button" class="bk__soon" id="soonBtn">⚡ Next available</button>
+        </div>
+
+        <div class="bk__cols">
+          <div class="cal">
+            <div class="cal__head">
+              <button type="button" id="prevM" class="cal__nav" aria-label="Previous month">‹</button>
+              <strong id="monthLbl">—</strong>
+              <button type="button" id="nextM" class="cal__nav" aria-label="Next month">›</button>
+            </div>
+            <div class="cal__dow" aria-hidden="true">
+              <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+            </div>
+            <div class="cal__grid" id="calGrid" role="grid" aria-label="Choose a date"></div>
+            <p class="cal__note">Weekdays only · slots refresh in your timezone</p>
+          </div>
+
+          <div class="slots" id="slots">
+            <p class="slots__empty">Pick a date to see open times.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="bk__stage" id="stage2" hidden>
+        <div class="bk__chosen" id="chosen"></div>
+        <form id="bkForm" class="bk__form" novalidate>
+          <div class="fld">
+            <label for="fName">Full name</label>
+            <input id="fName" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="fld">
+            <label for="fEmail">Work email</label>
+            <input id="fEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="fld">
+            <label for="fCo">Company</label>
+            <input id="fCo" name="company" type="text" autocomplete="organization" required />
+          </div>
+          <div class="fld">
+            <label for="fUse">What should we look at? <em>optional</em></label>
+            <textarea id="fUse" name="usecase" rows="3" placeholder="The process that eats the most time right now…"></textarea>
+          </div>
+          <p class="fld__err" id="formErr" hidden></p>
+          <div class="bk__act">
+            <button type="button" class="btn btn--ghost" id="backBtn">← Change time</button>
+            <button type="submit" class="btn">Confirm booking</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="bk__stage" id="stage3" hidden>
+        <div class="done">
+          <span class="done__tick" aria-hidden="true"></span>
+          <h2>You're booked.</h2>
+          <p class="done__sub" id="doneSub"></p>
+          <div class="done__card" id="doneCard"></div>
+          <p class="done__note">
+            Add it to your calendar now, and we'll follow up by email to confirm
+            and send the Google Meet link.
+          </p>
+          <div class="bk__act">
+            <a class="btn" id="gcalBtn" href="#" target="_blank" rel="noopener">Add to Google Calendar</a>
+            <button type="button" class="btn btn--ghost" id="icsBtn">Download .ics</button>
+          </div>
+          <button type="button" class="done__again" id="againBtn">Book a different time</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="/demo.js" defer></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/lawyeros", "destination": "https://lawyer-ai-frontend-flame.vercel.app/lawyeros" },
     { "source": "/lawyeros/", "destination": "https://lawyer-ai-frontend-flame.vercel.app/lawyeros" },
