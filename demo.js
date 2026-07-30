@@ -56,8 +56,6 @@
   var grid = $("calGrid"), monthLbl = $("monthLbl");
   var today = new Date(); today.setHours(0, 0, 0, 0);
 
-  function isWeekend(dt) { var g = dt.getDay(); return g === 0 || g === 6; }
-
   function renderCal() {
     var y = view.getFullYear(), m = view.getMonth();
     monthLbl.textContent = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(view);
@@ -79,8 +77,8 @@
       b.type = "button";
       b.className = "cal__day";
       b.textContent = d;
-      // bookable = a weekday, and not in the past
-      var bookable = !isWeekend(dt) && dt >= today;
+      // open every day -- only the past is unbookable
+      var bookable = dt >= today;
       b.disabled = !bookable;
       if (dt.getTime() === today.getTime()) b.classList.add("is-today");
       if (selDate && selDate.y === y && selDate.m === m && selDate.d === d) b.classList.add("is-sel");
@@ -155,14 +153,12 @@
   $("soonBtn").addEventListener("click", function () {
     var probe = new Date(today);
     for (var i = 0; i < 30; i++) {
-      if (!isWeekend(probe)) {
-        var sd = { y: probe.getFullYear(), m: probe.getMonth(), d: probe.getDate() };
-        if (slotsFor(sd).length) {
-          view = new Date(sd.y, sd.m, 1);
-          pickDate(sd.y, sd.m, sd.d);
-          slotsEl.scrollTop = 0;
-          return;
-        }
+      var sd = { y: probe.getFullYear(), m: probe.getMonth(), d: probe.getDate() };
+      if (slotsFor(sd).length) {
+        view = new Date(sd.y, sd.m, 1);
+        pickDate(sd.y, sd.m, sd.d);
+        slotsEl.scrollTop = 0;
+        return;
       }
       probe.setDate(probe.getDate() + 1);
     }
