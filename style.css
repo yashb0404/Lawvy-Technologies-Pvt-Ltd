@@ -259,39 +259,79 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 .sec-head { max-width: 680px; margin-bottom: 64px; }
 .sec-head p { margin-top: 20px; font-size: 1.05rem; color: var(--muted); }
 
-/* ── platform stack (CSS 3D) ────────────────── */
+/* ── platform stack — a cabinet of drawers ──── */
 .stack {
-  perspective: 1600px;
-  display: flex; flex-direction: column; gap: 16px;
+  position: relative;
+  display: grid; gap: 10px;
   max-width: 940px; margin: 0 auto;
+  padding-left: 44px;
+}
+
+/* the rail, with a pulse rising from Knowledge up to Experience */
+.stack__rail {
+  position: absolute; left: 17px; top: 6px; bottom: 46px; width: 2px;
+  background: linear-gradient(to top, rgba(198,169,107,0.55), rgba(198,169,107,0.1));
+  border-radius: 2px; overflow: hidden;
+}
+.stack__rail i {
+  position: absolute; left: -3px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold-lite);
+  box-shadow: 0 0 14px 3px rgba(198,169,107,0.75);
+  animation: riseUp 5.5s cubic-bezier(.6,0,.4,1) infinite;
+}
+@keyframes riseUp {
+  0%        { top: 100%; opacity: 0; }
+  12%       { opacity: 1; }
+  85%       { opacity: 1; }
+  100%      { top: -8px; opacity: 0; }
 }
 
 .layer {
-  --lift: 0px;
   position: relative;
-  display: grid; grid-template-columns: 64px 200px 1fr; align-items: center; gap: 26px;
-  padding: 28px 34px;
+  display: grid; grid-template-columns: 78px 1fr;
   border: 1px solid var(--line-cool);
-  border-radius: 18px;
-  background: linear-gradient(120deg, rgba(20,32,60,0.92), rgba(10,18,36,0.72));
-  box-shadow: 0 26px 60px -30px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.05);
-  transform-style: preserve-3d;
-  transform: rotateX(16deg) rotateZ(-1deg) translateZ(var(--lift));
-  transition: transform .45s cubic-bezier(.2,.7,.3,1), border-color .35s ease, box-shadow .35s ease;
+  border-radius: 14px; overflow: hidden;
+  background: linear-gradient(100deg, rgba(22,34,62,0.95), rgba(12,20,40,0.75));
+  transition: transform .32s cubic-bezier(.2,.7,.3,1), border-color .3s ease, box-shadow .3s ease;
 }
-.layer:hover {
-  --lift: 42px;
-  border-color: rgba(198,169,107,0.5);
-  box-shadow: 0 40px 80px -30px rgba(0,0,0,0.95), 0 0 60px -24px rgba(198,169,107,0.45),
-              inset 0 1px 0 rgba(255,255,255,0.09);
+.layer::after {   /* tick joining each drawer back to the rail */
+  content: ""; position: absolute; left: -27px; top: 50%;
+  width: 22px; height: 1px; background: rgba(198,169,107,0.35);
+}
+.layer:hover, .layer:focus-visible {
+  transform: translateX(12px);
+  border-color: rgba(198,169,107,0.55);
+  box-shadow: -14px 0 34px -20px rgba(0,0,0,0.9), 0 0 46px -22px rgba(198,169,107,0.5);
+  outline: none;
 }
 
-.layer__idx {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: var(--gold);
-  padding: 5px 0; border-top: 1px solid rgba(198,169,107,0.35);
+/* the drawer's edge face — this is what gives it thickness */
+.layer__edge {
+  display: grid; place-items: center;
+  border-right: 1px solid rgba(198,169,107,0.28);
+  background: linear-gradient(160deg, rgba(198,169,107,0.2), rgba(176,141,74,0.05));
+  transition: background .3s ease;
 }
-.layer h3 { font-size: 1.4rem; }
+.layer__edge b {
+  font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--gold-lite); opacity: .85;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.layer:hover .layer__edge { background: linear-gradient(160deg, rgba(198,169,107,0.34), rgba(176,141,74,0.1)); }
+.layer:hover .layer__edge b { opacity: 1; transform: scale(1.1); }
+
+.layer__body {
+  display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 24px;
+  padding: 24px 30px;
+}
+.layer h3 { font-size: 1.35rem; }
 .layer p { font-size: 14.5px; color: var(--muted); }
+
+.stack__foot {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 12px; font-size: 13px; color: rgba(148,160,186,0.7);
+}
+.stack__foot span { width: 26px; height: 1px; background: rgba(198,169,107,0.5); }
 
 /* ── capability cards ───────────────────────── */
 .cards {
@@ -497,8 +537,7 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 @media (max-width: 940px) {
   .product { grid-template-columns: 1fr; gap: 56px; }
   .product__visual { height: 340px; }
-  .layer { grid-template-columns: 1fr; gap: 12px; padding: 26px; transform: none; }
-  .layer:hover { --lift: 0px; transform: translateY(-4px); }
+  .layer__body { grid-template-columns: 1fr; gap: 8px; padding: 20px 22px; }
   .hero__stats { grid-template-columns: 1fr; }
 }
 
@@ -514,6 +553,12 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 
 @media (max-width: 720px) {
   .nav__links { display: none; }
+  /* the rail costs more width than it earns on a phone */
+  .stack { padding-left: 0; }
+  .stack__rail { display: none; }
+  .layer::after { display: none; }
+  .layer { grid-template-columns: 58px 1fr; }
+  .layer:hover, .layer:focus-visible { transform: none; }
   /* tighten the bar so the brand and CTA both fit a 360px screen */
   .nav { padding-left: 16px; padding-right: 16px; gap: 12px; }
   .btn--sm { padding: 9px 15px; font-size: 12.5px; }
