@@ -1,12 +1,12 @@
 /* Lawvy — demo booking flow.
-   Slots are defined once in IST (the team's working day) and rendered as real
+   Slots are defined once in IST (08:00-23:00) and rendered as real
    instants, so whatever timezone the visitor picks shows the same meeting. */
 (function () {
   "use strict";
 
   var DURATION_MIN = 30;
   var IST_OFFSET_MIN = 330;            // UTC+5:30, and India has no DST
-  var DAY_START = 9, DAY_END = 18;     // 09:00–18:00 IST
+  var DAY_START = 8, DAY_END = 23;     // 08:00-23:00 IST
   var TO = "hello@lawvy.tech";
 
   var $ = function (id) { return document.getElementById(id); };
@@ -26,6 +26,14 @@
     return new Intl.DateTimeFormat(undefined, Object.assign({ timeZone: tz }, opts)).format(date);
   }
   function timeLabel(d) { return fmt(d, { hour: "numeric", minute: "2-digit" }); }
+  function dayIn(d, zone) {
+    return new Intl.DateTimeFormat("en-GB", { timeZone: zone, day: "numeric", month: "short" }).format(d);
+  }
+  function istLabel(d) {
+    return new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit"
+    }).format(d) + " IST";
+  }
   function dateLabel(d) { return fmt(d, { weekday: "long", day: "numeric", month: "long", year: "numeric" }); }
 
   /* ── timezone select ───────────────────────── */
@@ -142,7 +150,10 @@
       groups[g].forEach(function (d) {
         var b = document.createElement("button");
         b.type = "button"; b.className = "slot";
-        b.textContent = timeLabel(d);
+        // a 15-hour IST window straddles midnight in distant zones, so a slot can
+        // land on a different local date than the one clicked -- say so
+        var local = dayIn(d, tz);
+        b.textContent = timeLabel(d) + (local !== dayIn(d, "Asia/Kolkata") ? "  ·  " + local : "");
         b.addEventListener("click", function () { pickSlot(d); });
         slotsEl.appendChild(b);
       });
@@ -179,7 +190,8 @@
     selStart = d;
     $("chosen").innerHTML =
       "<b>" + dateLabel(d) + " · " + timeLabel(d) + "</b>" +
-      "<span>" + DURATION_MIN + " min · Google Meet · " + tz.replace(/_/g, " ") + "</span>";
+      "<span>" + DURATION_MIN + " min · Google Meet · " + tz.replace(/_/g, " ") + "</span>" +
+      "<span class='ours'>That's " + istLabel(d) + " our side.</span>";
     step(2);
   }
 
@@ -214,6 +226,7 @@
     $("doneCard").innerHTML =
       "<div><b>When</b> · " + dateLabel(selStart) + "</div>" +
       "<div><b>Time</b> · " + timeLabel(selStart) + " – " + timeLabel(end) + " (" + tz.replace(/_/g, " ") + ")</div>" +
+      "<div><b>Our time</b> · " + istLabel(selStart) + "</div>" +
       "<div><b>Where</b> · Google Meet</div>" +
       "<div><b>For</b> · " + esc(name.value.trim()) + ", " + esc(co.value.trim()) + "</div>";
 
