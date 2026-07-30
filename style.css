@@ -14,6 +14,8 @@
   --gold-lite:  #EBD9AB;
   --gold-deep:  #A9853F;
   --wrap:       1160px;
+  /* vertical rhythm: one value drives the gap between every section */
+  --bay:        clamp(56px, 6.6vw, 84px);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -188,7 +190,7 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 }
 
 /* ── brand wall (vertical loop) ─────────────── */
-.brands { position: relative; padding: 96px 0 104px; }
+.brands { position: relative; padding: var(--bay) 0; }
 .brands__head { margin-bottom: 34px; }
 .brands__head h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); }
 
@@ -253,7 +255,7 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 .brands__note strong { color: var(--gold); font-weight: 600; }
 
 /* ── sections ───────────────────────────────── */
-.section { position: relative; padding: 120px 0; }
+.section { position: relative; padding: var(--bay) 0; }
 .section--alt { background: linear-gradient(180deg, transparent, rgba(14,24,48,0.55), transparent); }
 
 .sec-head { max-width: 680px; margin-bottom: 64px; }
@@ -500,7 +502,7 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 
 /* ── cta band ───────────────────────────────── */
 .cta-band {
-  padding: 130px 0; text-align: center;
+  padding: calc(var(--bay) * 1.1) 0; text-align: center;
   background:
     radial-gradient(ellipse 60% 100% at 50% 100%, rgba(176,141,74,0.16), transparent 70%),
     radial-gradient(ellipse 90% 80% at 50% 0%, rgba(36,64,111,0.35), transparent 70%),
@@ -562,7 +564,6 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
   /* tighten the bar so the brand and CTA both fit a 360px screen */
   .nav { padding-left: 16px; padding-right: 16px; gap: 12px; }
   .btn--sm { padding: 9px 15px; font-size: 12.5px; }
-  .section { padding: 88px 0; }
   .hero { padding-top: 120px; }
   .hero__scroll { display: none; }
   .foot__inner { flex-direction: column; }
