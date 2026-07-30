@@ -187,6 +187,64 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
   background: linear-gradient(to bottom, transparent, var(--gold));
 }
 
+/* ── brand wall (vertical loop) ─────────────── */
+.brands { position: relative; padding: 96px 0 104px; }
+.brands__head { margin-bottom: 34px; }
+.brands__head h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); }
+
+.wall {
+  --row: 96px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  height: calc(var(--row) * 3);
+  overflow: hidden;
+  border: 1px solid var(--line-cool); border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+  /* feather the top and bottom so marks enter and leave rather than pop */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+}
+
+.wall__col { position: relative; overflow: hidden; border-right: 1px solid var(--line-cool); }
+.wall__col--last { border-right: 0; }
+
+.wall__track {
+  display: flex; flex-direction: column;
+  animation: wallUp var(--dur, 38s) linear infinite;
+}
+.wall__track--rev { animation-name: wallDown; }
+
+/* the list is duplicated in the markup, so -50% lands exactly on the copy */
+@keyframes wallUp   { from { transform: translateY(0);    } to { transform: translateY(-50%); } }
+@keyframes wallDown { from { transform: translateY(-50%); } to { transform: translateY(0);    } }
+
+.wall:hover .wall__track { animation-play-state: paused; }
+
+.bm {
+  flex: none;
+  display: grid; place-items: center;
+  height: var(--row); padding: 0 18px;
+  text-align: center; white-space: nowrap;
+  color: rgba(232,238,248,0.62);
+  transition: color .3s ease;
+}
+.wall__col:hover .bm { color: rgba(232,238,248,0.92); }
+
+/* wordmark treatments — stand-ins until real logo files land */
+.bm--motilal { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.04em; }
+.bm--ganni   { font-size: 1.55rem; font-weight: 700; letter-spacing: 0.06em; }
+.bm--hello   { font-size: 1.4rem;  font-weight: 700; letter-spacing: -0.03em; }
+.bm--antara  { font-size: 1.25rem; font-weight: 400; letter-spacing: 0.34em;
+               font-family: Georgia, "Times New Roman", serif; }
+.bm--meem    { font-size: 1.45rem; font-weight: 700; letter-spacing: 0.02em; }
+.bm--food    { font-size: 1.45rem; font-weight: 400; letter-spacing: -0.035em; }
+.bm--honest  { font-size: 0.92rem; font-weight: 400; letter-spacing: 0.17em; }
+
+.brands__note {
+  margin-top: 20px;
+  font-size: 12.5px; color: rgba(148,160,186,0.7);
+}
+.brands__note strong { color: var(--gold); font-weight: 600; }
+
 /* ── sections ───────────────────────────────── */
 .section { position: relative; padding: 120px 0; }
 .section--alt { background: linear-gradient(180deg, transparent, rgba(14,24,48,0.55), transparent); }
@@ -402,6 +460,16 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
   .hero__stats { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 820px) {
+  /* two columns, shorter box — three narrow columns crush the longer marks */
+  .wall { --row: 84px; grid-template-columns: repeat(2, 1fr); height: calc(var(--row) * 3); }
+  .wall__col--last { display: none; }
+  .bm { padding: 0 10px; }
+  .bm--honest { font-size: 0.8rem; letter-spacing: 0.12em; }
+  .bm--motilal, .bm--ganni, .bm--hello, .bm--meem, .bm--food { font-size: 1.2rem; }
+  .bm--antara { font-size: 1.05rem; letter-spacing: 0.26em; }
+}
+
 @media (max-width: 720px) {
   .nav__links { display: none; }
   /* tighten the bar so the brand and CTA both fit a 360px screen */
@@ -417,4 +485,8 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   * { animation: none !important; }
+
+  /* no loop, so drop the duplicated marks and let the wall size to content */
+  .wall { height: auto; -webkit-mask-image: none; mask-image: none; }
+  .bm[aria-hidden="true"] { display: none; }
 }
