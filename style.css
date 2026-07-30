@@ -217,17 +217,24 @@ h3 { font-size: 1.125rem; letter-spacing: -0.01em; }
 @keyframes wallUp   { from { transform: translateY(0);    } to { transform: translateY(-50%); } }
 @keyframes wallDown { from { transform: translateY(-50%); } to { transform: translateY(0);    } }
 
-.wall:hover .wall__track { animation-play-state: paused; }
-
 .bm {
   flex: none;
   display: grid; place-items: center;
-  height: var(--row); padding: 0 18px;
+  height: var(--row); padding: 0 20px;
   text-align: center; white-space: nowrap;
   color: rgba(232,238,248,0.62);
-  transition: color .3s ease;
 }
-.wall__col:hover .bm { color: rgba(232,238,248,0.92); }
+
+/* real marks: white-on-transparent, so opacity alone sets the weight.
+   max-height keeps every logo optically similar regardless of source size. */
+.bm img {
+  width: auto; max-width: 100%;
+  max-height: 34px;
+  object-fit: contain;
+  opacity: 0.62;
+}
+.bm img[src$="ganni.svg"]  { max-height: 26px; }
+.bm img[src$="antara.png"] { max-height: 46px; }   /* stacked lockup needs headroom */
 
 /* wordmark treatments — stand-ins until real logo files land */
 .bm--motilal { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.04em; }
