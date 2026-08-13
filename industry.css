@@ -1,0 +1,85 @@
+/* Lawvy — industry subpages. Inherits tokens from style.css */
+
+.ip__hero {
+  padding: 150px 0 var(--bay);
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 0%, rgba(176,141,74,0.14), transparent 62%),
+    radial-gradient(ellipse 80% 60% at 90% 100%, rgba(36,64,111,0.32), transparent 68%),
+    var(--ink-2);
+  border-bottom: 1px solid var(--line-cool);
+}
+.ip__back { display: inline-block; margin-bottom: 22px; font-size: 13px; color: var(--muted); }
+.ip__back:hover { color: var(--gold); }
+.ip__hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
+.ip__lede { max-width: 640px; margin: 20px 0 34px; font-size: 1.06rem; color: var(--muted); }
+
+/* what we solve */
+.solves { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.solve {
+  padding: 28px 26px;
+  border-left: 2px solid rgba(198,169,107,0.4);
+  border-radius: 0 12px 12px 0;
+  background: linear-gradient(90deg, rgba(176,141,74,0.06), rgba(255,255,255,0.012));
+}
+.solve h3 { margin-bottom: 10px; font-size: 1.1rem; }
+.solve p { font-size: 14.4px; color: var(--muted); }
+.solve em { font-style: italic; color: var(--gold-lite); }
+
+/* deploy + stats */
+.ip__two { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+.ip__deploy { margin-top: 26px; }
+
+.ip__stats {
+  padding: 28px 26px 24px;
+  border: 1px solid rgba(198,169,107,0.3); border-radius: 16px;
+  background: linear-gradient(160deg, rgba(176,141,74,0.1), rgba(255,255,255,0.014));
+}
+.ip__statLbl {
+  display: block; margin-bottom: 20px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+}
+.ip__statGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 18px; }
+.ip__statGrid b {
+  display: block; font-size: 1.5rem; font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.1; color: var(--gold-lite);
+}
+.ip__statGrid span { display: block; margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+.ip__statNote {
+  margin-top: 24px; padding-top: 18px;
+  border-top: 1px solid rgba(198,169,107,0.22);
+  font-size: 11.8px; line-height: 1.6; color: rgba(148,160,186,0.72);
+}
+
+/* open invitation */
+.ip__open {
+  padding: calc(var(--bay) * 1.15) 0; text-align: center;
+  background:
+    radial-gradient(ellipse 60% 100% at 50% 100%, rgba(176,141,74,0.14), transparent 70%),
+    var(--ink-2);
+  border-top: 1px solid var(--line-cool);
+}
+.ip__open h2 { font-size: clamp(1.7rem, 3.2vw, 2.5rem); }
+.ip__open p { max-width: 620px; margin: 20px auto 0; font-size: 1rem; color: var(--muted); }
+.ip__acts { display: flex; flex-wrap: wrap; gap: 13px; justify-content: center; margin-top: 32px; }
+
+/* other industries */
+.ip__more { padding: var(--bay) 0; }
+.ip__moreLinks { display: flex; flex-wrap: wrap; gap: 10px; }
+.ip__moreLinks a {
+  padding: 11px 20px; font-size: 14px; color: var(--muted);
+  border: 1px solid var(--line-cool); border-radius: 50px;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.ip__moreLinks a:hover {
+  color: var(--gold-lite); border-color: rgba(198,169,107,0.5);
+  background: rgba(176,141,74,0.08);
+}
+
+@media (max-width: 900px) {
+  .ip__two { grid-template-columns: 1fr; gap: 34px; }
+}
+@media (max-width: 720px) {
+  .ip__hero { padding-top: 118px; }
+  .ip__statGrid { gap: 18px 14px; }
+}
