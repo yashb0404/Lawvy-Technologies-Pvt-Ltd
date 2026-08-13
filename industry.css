@@ -1,57 +1,80 @@
 /* Lawvy — industry subpages. Inherits tokens from style.css */
 
+/* ── hero ── */
 .ip__hero {
   padding: 150px 0 var(--bay);
   background:
-    radial-gradient(ellipse 70% 60% at 20% 0%, rgba(176,141,74,0.14), transparent 62%),
+    radial-gradient(ellipse 70% 60% at 20% 0%, rgba(176,141,74,0.15), transparent 62%),
     radial-gradient(ellipse 80% 60% at 90% 100%, rgba(36,64,111,0.32), transparent 68%),
     var(--ink-2);
   border-bottom: 1px solid var(--line-cool);
 }
-.ip__back { display: inline-block; margin-bottom: 22px; font-size: 13px; color: var(--muted); }
+.ip__back { display: inline-block; margin-bottom: 20px; font-size: 13px; color: var(--muted); }
 .ip__back:hover { color: var(--gold); }
-.ip__hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
-.ip__lede { max-width: 640px; margin: 20px 0 34px; font-size: 1.06rem; color: var(--muted); }
-
-/* what we solve */
-.solves { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.solve {
-  padding: 28px 26px;
-  border-left: 2px solid rgba(198,169,107,0.4);
-  border-radius: 0 12px 12px 0;
-  background: linear-gradient(90deg, rgba(176,141,74,0.06), rgba(255,255,255,0.012));
-}
-.solve h3 { margin-bottom: 10px; font-size: 1.1rem; }
-.solve p { font-size: 14.4px; color: var(--muted); }
-.solve em { font-style: italic; color: var(--gold-lite); }
-
-/* deploy + stats */
-.ip__two { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
-.ip__deploy { margin-top: 26px; }
-
-.ip__stats {
-  padding: 28px 26px 24px;
-  border: 1px solid rgba(198,169,107,0.3); border-radius: 16px;
-  background: linear-gradient(160deg, rgba(176,141,74,0.1), rgba(255,255,255,0.014));
-}
-.ip__statLbl {
-  display: block; margin-bottom: 20px;
-  font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--gold);
-}
-.ip__statGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 18px; }
-.ip__statGrid b {
-  display: block; font-size: 1.5rem; font-weight: 700;
-  letter-spacing: -0.03em; line-height: 1.1; color: var(--gold-lite);
-}
-.ip__statGrid span { display: block; margin-top: 6px; font-size: 12.5px; color: var(--muted); }
-.ip__statNote {
-  margin-top: 24px; padding-top: 18px;
-  border-top: 1px solid rgba(198,169,107,0.22);
-  font-size: 11.8px; line-height: 1.6; color: rgba(148,160,186,0.72);
+.ip__hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+.ip__kick {
+  max-width: 620px; margin: 20px 0 0;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--muted);
 }
 
-/* open invitation */
+/* stat band — the numbers lead, they don't hide at the bottom */
+.ip__band {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  margin-top: 44px;
+  background: var(--line-cool);
+  border: 1px solid var(--line-cool); border-radius: 16px; overflow: hidden;
+}
+.ip__stat { padding: 24px 22px; background: rgba(10,18,36,0.6); }
+.ip__stat b {
+  display: block; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 700;
+  letter-spacing: -0.035em; line-height: 1.05;
+  background: linear-gradient(105deg, var(--gold-lite), var(--gold));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ip__stat span { display: block; margin-top: 8px; font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+.ip__bandNote { margin-top: 14px; font-size: 11.5px; color: rgba(148,160,186,0.62); }
+
+/* ── solutions ── */
+.sols { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+
+.sol {
+  position: relative;
+  padding: 32px 30px 30px;
+  border: 1px solid var(--line-cool); border-radius: 16px;
+  background: linear-gradient(150deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+  transition: border-color .28s ease, background .28s ease, transform .28s cubic-bezier(.2,.7,.3,1);
+}
+.sol:hover {
+  transform: translateY(-3px);
+  border-color: rgba(198,169,107,0.45);
+  background: linear-gradient(150deg, rgba(176,141,74,0.1), rgba(255,255,255,0.014));
+}
+
+.sol__n {
+  position: absolute; top: 26px; right: 28px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+  color: rgba(198,169,107,0.45);
+}
+.sol h3 {
+  max-width: 90%; margin-bottom: 20px;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem); font-weight: 600; line-height: 1.18;
+  color: var(--gold-lite);
+}
+
+.sol ul { list-style: none; display: grid; gap: 11px; }
+.sol li {
+  position: relative; padding-left: 22px;
+  font-size: 14.3px; line-height: 1.5; color: #C9D2E4;
+}
+.sol li::before {
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 11px; height: 5.5px;
+  border-left: 1.6px solid var(--gold); border-bottom: 1.6px solid var(--gold);
+  transform: rotate(-45deg);
+}
+
+/* ── open invitation ── */
 .ip__open {
   padding: calc(var(--bay) * 1.15) 0; text-align: center;
   background:
@@ -60,10 +83,10 @@
   border-top: 1px solid var(--line-cool);
 }
 .ip__open h2 { font-size: clamp(1.7rem, 3.2vw, 2.5rem); }
-.ip__open p { max-width: 620px; margin: 20px auto 0; font-size: 1rem; color: var(--muted); }
+.ip__open p { max-width: 600px; margin: 20px auto 0; font-size: 1rem; color: var(--muted); }
 .ip__acts { display: flex; flex-wrap: wrap; gap: 13px; justify-content: center; margin-top: 32px; }
 
-/* other industries */
+/* ── other industries ── */
 .ip__more { padding: var(--bay) 0; }
 .ip__moreLinks { display: flex; flex-wrap: wrap; gap: 10px; }
 .ip__moreLinks a {
@@ -76,10 +99,18 @@
   background: rgba(176,141,74,0.08);
 }
 
+/* ── responsive ── */
 @media (max-width: 900px) {
-  .ip__two { grid-template-columns: 1fr; gap: 34px; }
+  .sols { grid-template-columns: 1fr; }
+  .ip__band { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
   .ip__hero { padding-top: 118px; }
-  .ip__statGrid { gap: 18px 14px; }
+  .sol { padding: 26px 22px; }
+  /* no room to float the index beside a wrapping title — let it flow above */
+  .sol__n { position: static; display: block; margin-bottom: 10px; }
+  .sol h3 { max-width: 100%; }
+}
+@media (max-width: 460px) {
+  .ip__band { grid-template-columns: 1fr; }
 }
