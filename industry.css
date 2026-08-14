@@ -17,16 +17,16 @@
   font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--muted);
 }
 
-/* stat band — the numbers lead, they don't hide at the bottom */
+/* stat band — proof under the solutions, not the headline above them */
 .ip__band {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
   margin-top: 44px;
   background: var(--line-cool);
   border: 1px solid var(--line-cool); border-radius: 16px; overflow: hidden;
 }
-.ip__stat { padding: 24px 22px; background: rgba(10,18,36,0.6); }
+.ip__stat { padding: 22px 20px; background: rgba(10,18,36,0.6); }
 .ip__stat b {
-  display: block; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 700;
+  display: block; font-size: clamp(1.3rem, 2.1vw, 1.7rem); font-weight: 700;
   letter-spacing: -0.035em; line-height: 1.05;
   background: linear-gradient(105deg, var(--gold-lite), var(--gold));
   -webkit-background-clip: text; background-clip: text;
