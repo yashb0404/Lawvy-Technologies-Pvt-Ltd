@@ -27,6 +27,21 @@
   font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--muted);
 }
 
+/* the diagonal gradient and wide glow read as a blob at this size — flatten
+   it, tighten it, and give it room to breathe under the copy */
+.ip__hero .btn {
+  margin-top: 34px;
+  padding: 13px 26px;
+  font-size: 14px; letter-spacing: 0.005em;
+  background: linear-gradient(180deg, #EFE0BA, #C9AC6E);
+  border: 1px solid rgba(255,247,232,0.45);
+  box-shadow: 0 6px 18px -8px rgba(176,141,74,0.5);
+}
+.ip__hero .btn:hover {
+  background: linear-gradient(180deg, #F5E9CC, #D3B67A);
+  box-shadow: 0 10px 24px -10px rgba(176,141,74,0.65);
+}
+
 /* stat band — proof under the solutions, not the headline above them */
 .ip__band {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
